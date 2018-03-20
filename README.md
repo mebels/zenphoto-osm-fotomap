@@ -51,7 +51,7 @@ Example:
 &lt;?php printOpenStreetMap(); ?&gt;
 &lt;/div&gt;</code></pre>   
 
-7.) OSM Map Popups with title and/or description and/or thumbnail   
+7.) OSM Map Popups with/without title and/or description and/or thumbnail   
 Use the following linked `zp_openstreetmap.php` file for the `zp_openstreetmap` plugin.   
 Replace the original with it.  
 This file expand the `zp_openstreetmap` plugin to individually select the display of `title`, `description` and `thumbnail`.   
@@ -75,7 +75,7 @@ print str_pad('',4096)."\n";
 ob_flush();
 flush();
 usleep(30000);
-set_time_limit(30); 
+//set_time_limit(30); 
 }
 ?&gt;
 &lt;script&gt;
@@ -85,3 +85,20 @@ document.getElementsByClassName("osmmapspacer")[0].style.display = "none";
 &lt;/script&gt;</code></pre>
 Don't forget to save a `img src="/themes/basiczen/images/osmmapspacer.gif`.   
 Yo can find a spacer gif in `/zp-core/zp-extensions/bxslider_thumb_nav/images/bx_loader.gif`, or use your own.   
+   
+An another nice gimmick for page load waiting is a fake progress bar.   
+<pre><code>&lt;div class="osmfotomapwait" style="width: 100%;background-color: #ddd;"&gt;
+&lt;div class="osmfotomapwaitbar" style="width: 0.1%;height: 15px;background-color: #4CAF50;"&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;script&gt;
+var width = 0.1;
+var id = setInterval(frame, 25);
+function frame() {
+if (width &gt;= 100) {
+clearInterval(id);
+} else {
+width = width + 0.1;
+document.getElementsByClassName("osmfotomapwaitbar")[0].style.width = width + '%';
+}}
+&lt;/script&gt;</code></pre>   
+Source: https://www.w3schools.com/howto/howto_js_progressbar.asp
