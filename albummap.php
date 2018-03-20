@@ -32,8 +32,8 @@ $image_exif_thumb = "<a href='" . $imageobject->getLink() . "'><img src='" . $im
 $geodata[$geodata_i] = array(
 'lat' => $image_exif_lat,
 'long' => $image_exif_lon,
-'title' => '',
-'desc' => '',
+'title' => shortenContent($imageobject->getTitle(),50,'...').'<br />',
+'desc' => shortenContent($imageobject->getDesc(),100,'...'),
 'thumb' => $image_exif_thumb,
 'current' => '0'
 );
