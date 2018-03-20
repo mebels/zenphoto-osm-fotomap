@@ -14,7 +14,11 @@ TUTORIAL
 Duplicate your `/themes/[themename]/album.php` to `/themes/[themename]/albummap.php`   
 
 2.) FTP   
-Insert the PHP code from the Github `albummap.php` in the HTML `<body>` of the `/themes/[themename]/albummap.php`   
+Insert the PHP code from the Github `albummap.php` in the HTML `<body>` of the `/themes/[themename]/albummap.php`  
+If you use database table prefixes, then you have to insert it in the right place in the PHP code.   
+Example:    
+<pre><code>$result = query("SELECT `prefix_images`.`albumid`, `prefix_images`.`id` AS imageid, `prefix_images`.`EXIFGPSLatitude` AS exiflat, `prefix_images`.`EXIFGPSLongitude` AS exiflon, `prefix_images`.`filename`, `prefix_albums`.`id`, `prefix_albums`.`folder` FROM `prefix_images` INNER JOIN `prefix_albums` ON `prefix_images`.`albumid`=`prefix_albums`.`id` WHERE `prefix_images`.`show` = '1'");</code></pre>    
+   
 Info: You can freely design the `albummap.php`.   
 Remove all code to display albums and pictures.   
 These code parts can be removed:   
