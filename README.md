@@ -92,7 +92,7 @@ An another nice gimmick for page load waiting is a fake progress bar.
 &lt;/div&gt;
 &lt;script&gt;
 var width = 0.1;
-var id = setInterval(frame, 25);
+var id = setInterval(frame, 30);
 function frame() {
 if (width &gt;= 100) {
 clearInterval(id);
@@ -101,4 +101,5 @@ width = width + 0.1;
 document.getElementsByClassName("osmfotomapwaitbar")[0].style.width = width + '%';
 }}
 &lt;/script&gt;</code></pre>   
+JSFiddle: https://jsfiddle.net/9x6c57af/   
 Source: https://www.w3schools.com/howto/howto_js_progressbar.asp
