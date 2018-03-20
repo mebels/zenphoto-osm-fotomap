@@ -27,14 +27,14 @@ $imageobject = newImage($albumobject, $imagesarray["filename"]);
 
 $image_exif_lat = $imageobject->get('EXIFGPSLatitude');
 $image_exif_lon = $imageobject->get('EXIFGPSLongitude');
-$image_exif_thumb = "<a href='" . $imageobject->getLink() . "'><img src='" . $imageobject->getThumb() . "'></a>";
+$image_link_thumb = "<a href='" . $imageobject->getLink() . "'><img src='" . $imageobject->getThumb() . "'></a>";
 
 $geodata[$geodata_i] = array(
 'lat' => $image_exif_lat,
 'long' => $image_exif_lon,
 'title' => shortenContent($imageobject->getTitle(),50,'...').'<br />',
 'desc' => shortenContent($imageobject->getDesc(),100,'...'),
-'thumb' => $image_exif_thumb,
+'thumb' => $image_link_thumb,
 'current' => '0'
 );
 
