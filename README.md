@@ -2,7 +2,7 @@
 Tutorial for a Zenphoto overview OSM Fotomap with all photos.   
 
 Required Plugins:   
-`multiple_layouts`
+`multiple_layouts`   
 `zp_openstreetmap v1.1.2`   
 
 Info:   
