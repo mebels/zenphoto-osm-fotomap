@@ -1,2 +1,83 @@
 # zenphoto-osm-fotomap
-Tutorial
+Tutorial for a Zenphoto overview OSM Fotomap with all photos.   
+
+Required Plugins:   
+`multiple_layouts`
+`zp_openstreetmap v1.1.2`   
+
+Info:   
+The Github `albummap.php` contains only a content for a `albumxxx.php` in a zenphoto theme.   
+
+TUTORIAL   
+
+1.) FTP   
+Duplicate your `/themes/[themename]/album.php` to `/themes/[themename]/albummap.php`   
+
+2.) FTP   
+Insert the PHP code from the Github `albummap.php` in the HTML `<body>` of the `/themes/[themename]/albummap.php`   
+Info: You can freely design the `albummap.php`.   
+Remove all code to display albums and pictures.   
+These code parts can be removed:   
+<pre><code>&lt;div id="images"&gt;
+&lt;?php while (next_image()): ?&gt;
+...
+&lt;/div&gt;</code></pre>
+<pre><code>&lt;div id="albums"&gt;
+&lt;?php while (next_album()): ?&gt;
+...
+&lt;/div&gt;</code></pre>   
+
+3.) Zenphoto admin area   
+Activate the required Plugins   
+`multiple_layouts` = enable "Albums"   
+`zp_openstreetmap v1.1.2` = height 100%, width 100% (more infos further down)   
+
+4.)  Zenphoto admin area   
+Create a new static album `New Album` with a name of your choice.      
+
+5.)  Zenphoto admin area   
+Go to the created new static album and select the `albummap.php` as the layout for this album.   
+- Albums `->` (Albumname) `->` Utilities (sidebar right) `->` Select album layout: "albummap"   
+
+6.) Style the OSM map   
+In the `zp_openstreetmap` Plugin settings set the width and height to "100%".   
+Use the `zp_openstreetmap` PHP function `printOpenStreetMap();` in your `image.php` (and/or `album.php` and/or `index.php` and/or whatever.php) with a HTML div box to set the width and height.   
+Example:   
+<pre><code>&lt;div class="zposmdivbox" style="width:800px;height:450px;"&gt;
+&lt;?php printOpenStreetMap(); ?&gt;
+&lt;/div&gt;</code></pre>   
+
+7.) OSM Map Popups with title and/or description and/or thumbnail   
+Use the following linked `zp_openstreetmap.php` file for the `zp_openstreetmap` plugin.   
+Replace the original with it.  
+This file expand the `zp_openstreetmap` plugin to individually select the display of `title`, `description` and `thumbnail`.   
+https://github.com/mebels/zp_openstreetmap/blob/master/zp_openstreetmap.php
+
+8.) Additional feature   
+With several thousand photos, loading the page with the overview OSM fotomap can take a long time.   
+If it supports your server, use PHP `ob_flush()` and `flush()` with a Javascript code and a Loading Spacer gif.   
+   
+Put this code in the `/themes/[themename]/albummap.php` right after the HTML body tag:   
+<pre><code>&lt;body&gt;
+&lt;div class="osmmapspacer" style="position:absolute;margin: 0 auto;top:50%;left:0;right:0;z-index:1000;"&gt;
+Please wait. The Fotomap is loading.&lt;br&gt;
+&lt;img src="/themes/basiczen/images/osmmapspacer.gif"&gt;
+&lt;/div&gt;
+&lt;?php
+// source: http://www.joeyrivera.com/2008/ob_start-ob_flush-flush-set_time_limit-give-user-feedback-during-execution/
+if (ob_get_level() == 0) { ob_start(); }
+for($i=0; $i<70; $i++) {
+print str_pad('',4096)."\n";
+ob_flush();
+flush();
+usleep(30000);
+set_time_limit(30); 
+}
+?&gt;
+&lt;script&gt;
+document.addEventListener("DOMContentLoaded", function(event) { 
+document.getElementsByClassName("osmmapspacer")[0].style.display = "none";
+});
+&lt;/script&gt;</code></pre>
+Don't forget to save a `img src="/themes/basiczen/images/osmmapspacer.gif`.   
+Yo can find a spacer gif in `/zp-core/zp-extensions/bxslider_thumb_nav/images/bx_loader.gif`, or use your own.   
