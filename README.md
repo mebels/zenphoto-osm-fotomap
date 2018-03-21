@@ -59,12 +59,11 @@ https://github.com/mebels/zp_openstreetmap/blob/master/zp_openstreetmap.php
 
 8.) Additional feature   
 With several thousand photos, loading the page with the overview OSM fotomap can take a long time.   
-If it supports your server, use PHP `ob_flush()` and `flush()` with a Javascript code and a Loading Spacer gif.   
+If it supports your server, use PHP `ob_flush()` and `flush()` with a Javascript code and a Loading Spacer gif or JavaScript progress bar.   
    
-Put this code in the `/themes/[themename]/albummap.php` right after the HTML body tag:   
-<pre><code>&lt;body&gt;
-&lt;div class="osmmapspacer" style="position:absolute;margin: 0 auto;top:50%;left:0;right:0;z-index:1000;"&gt;
-Please wait. The Fotomap is loading.&lt;br&gt;
+Put this code in the `/themes/[themename]/albummap.php` directly above the code from the Github albummap.php:   
+<pre><code>&lt;div class="osmmapspacer" style="width: 100%;margin: 0 auto;text-align: center;"&gt;
+&lt;span&gt;Please wait. The Fotomap is loading.&lt;/span&gt;&lt;br&gt;
 &lt;img src="/themes/basiczen/images/osmmapspacer.gif"&gt;
 &lt;/div&gt;
 &lt;?php
@@ -82,7 +81,8 @@ usleep(30000);
 document.addEventListener("DOMContentLoaded", function(event) { 
 document.getElementsByClassName("osmmapspacer")[0].style.display = "none";
 });
-&lt;/script&gt;</code></pre>
+&lt;/script&gt;
+</code></pre>
 Don't forget to save a `img src="/themes/basiczen/images/osmmapspacer.gif`.   
 Yo can find a spacer gif in `/zp-core/zp-extensions/bxslider_thumb_nav/images/bx_loader.gif`, or use your own.   
    
@@ -92,7 +92,7 @@ An another nice gimmick for page load waiting is a fake progress bar.
 &lt;/div&gt;
 &lt;script&gt;
 var width = 0.1;
-var id = setInterval(frame, 30);
+var id = setInterval(frame, 30);  // Seconds to load
 function frame() {
 if (width &gt;= 100) {
 clearInterval(id);
@@ -101,5 +101,6 @@ width = width + 0.1;
 document.getElementsByClassName("osmfotomapwaitbar")[0].style.width = width + '%';
 }}
 &lt;/script&gt;</code></pre>   
+You can put it between the text and the spacer gif.    
 JSFiddle: https://jsfiddle.net/9x6c57af/   
 Source: https://www.w3schools.com/howto/howto_js_progressbar.asp
