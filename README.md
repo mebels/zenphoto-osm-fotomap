@@ -50,7 +50,11 @@ Example:
 <pre><code>&lt;div class="zposmdivbox" style="width:800px;height:450px;"&gt;
 &lt;?php printOpenStreetMap(); ?&gt;
 &lt;/div&gt;</code></pre>   
-
+A "height" in px or similar (not percent) is required.    
+    
+------------------------------------------------------------------------------------- 
+Additionals   
+       
 7.) OSM Map Popups with/without title and/or description and/or thumbnail   
 Use the following linked `zp_openstreetmap.php` file for the `zp_openstreetmap` plugin.   
 Replace the original with it.  
