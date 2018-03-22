@@ -34,7 +34,7 @@ These code parts can be removed:
 3.) Zenphoto admin area   
 Activate the required Plugins   
 `multiple_layouts` = enable "Albums"   
-`zp_openstreetmap v1.1.2` = height 100%, width 100% (more infos further down)   
+`zp_openstreetmap v1.1.2`
 
 4.)  Zenphoto admin area   
 Create a new static album `New Album` with a name of your choice.      
@@ -43,11 +43,19 @@ Create a new static album `New Album` with a name of your choice.
 Go to the created new static album and select the `albummap.php` as the layout for this album.   
 - Albums `->` (Albumname) `->` Utilities (sidebar right) `->` Select album layout: "albummap"   
 
-6.) Style the OSM map   
-In the `zp_openstreetmap` Plugin settings set the width and height to "100%".   
-Use the `zp_openstreetmap` PHP function `printOpenStreetMap();` in your `image.php` (and/or `album.php` and/or `index.php` and/or whatever.php) with a HTML div box to set the width and height.   
+6.) CSS & HTML    
+Style the OSM map width and height independently from the plugin settings.      
+Use the `zp_openstreetmap` PHP function `printOpenStreetMap();` in your `albummap.php` in a HTML div box and set the width and height via CSS. You can put the CSS in the albummap.php &lt;head&gt;.   
 Example:   
-<pre><code>&lt;div class="zposmdivbox" style="width:800px;height:450px;"&gt;
+CSS:   
+<pre><code>&lt;style&gt;
+.zposmdivbox #osm_map {
+	width: 100% !important;
+	height: 800px !important;
+}
+&lt;/style&gt;</code></pre>    
+HTML:   
+<pre><code>&lt;div class="zposmdivbox"&gt;
 &lt;?php printOpenStreetMap(); ?&gt;
 &lt;/div&gt;</code></pre>   
 A "height" in px or similar (not percent) is required.    
